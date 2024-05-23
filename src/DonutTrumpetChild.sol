@@ -12,6 +12,11 @@ import "./DonutTrumpet.sol";
 contract DonutTrumpetChild is DonutTrumpet {
     address public childChainManager;
 
+    function setChildChainManager(address childChainManagerAddress) external onlyOwner {
+        require(childChainManagerAddress != address(0), string.concat(name(), ": manager address can not be 0"));
+        childChainManager = childChainManagerAddress;
+    }
+
     modifier onlyChildChainManager() {
         require(msg.sender == childChainManager, string.concat(name(), ": only `childChainManager` can call this function"));
         _;
